@@ -12,7 +12,7 @@ Para rodar o projeto em sua máquina:
     ou
     127.0.0.1:3000
 
-a versão main do git fica na nuvem nesse link:
+a versão main do git fica na nuvem nesse link: https://jihatsu-teki.vercel.app
 
 
 As páginas do site são criadas pelas pastas que tem dentro da pasta app, as páginas em si são os arquivos page.jsx

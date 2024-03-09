@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: JetBrainsMono;
+    src: url("/JetBrainsMono/fonts/ttf/JetBrainsMono-Bold.ttf") format("truetype");
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -24,6 +29,9 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+main{
+    font-family: JetBrainsMono;
 }
 
 @layer utilities {
