@@ -14,7 +14,9 @@ body {
     color: #ffffff;
     background: #000000;
 }
-
+input{
+    color: #000000;
+}
 main {
     font-family: JetBrainsMono;
 
