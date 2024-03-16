@@ -3,7 +3,7 @@
 
 import { NextResponse } from "next/server"
 let id;
-const baseUrlDatabase = 'http://127.0.0.1/api/auth/buscatoken'
+const baseUrlDatabase = 'http://jihatsu-teki.vercel.app/api/auth/buscatoken'
 export default function middleware(request) {
     // const { Pool } = pg;
     // const pool = new Pool({
