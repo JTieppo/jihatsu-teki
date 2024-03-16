@@ -54,7 +54,7 @@ export default function Signup() {
                 <input type={mostraSenha} required value={confirmaSenha} onChange={(e) => setConfirmaSenha(e.target.value)} />
                 <input type="submit" value={'Criar conta'} className="text-white" />
             </form>
-            <div className={`${mostraSenhasCorrespondem? 'absolute':'hidden'} flex h-full w-full items-end pointer-events-none transform ease-in duration-400`}>
+            <div className={`${mostraSenhasCorrespondem? 'absolute':'hidden'} flex h-full w-full items-end pointer-events-none`}>
                 <p className="mx-auto mb-20 bg-slate-500">As senhas não correspondem</p>
             </div>
         </div>
