@@ -1,6 +1,7 @@
 "use client"
 import { useState } from "react"
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
+import Cookie from 'js-cookie';
 
 export default function Signup() {
     const [senha, setSenha] = useState('');
@@ -32,7 +33,13 @@ export default function Signup() {
                 body: JSON.stringify({ nome: nome, sobrenome: sobrenome, senha: senha, email: email })
             })
                 .then(response => response.json())
-                .then(response => console.log(response))
+                .then(response => {
+                    console.log(response)
+                    if(response.success){
+                        Cookie.set(response.nameCookie, response.cookie)
+                        route.push(`/usuario/${response.id}`)
+                    }
+                })
         }
     }
     return (

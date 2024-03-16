@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server'
 import pg from 'pg';
 
 function GeraToken(nome, sobrenome) {
-    console.log("começa")
     let carga = [];
     let token;
     let contador = [];
@@ -17,12 +16,10 @@ function GeraToken(nome, sobrenome) {
             if (contador[0] < (nome.length + sobrenome.length)) {
                 if (contador[0] % 2 == 0 && contador[2] < sobrenome.length) {
                     carga[x] = sobrenome.slice()[contador[2]];
-                    console.log("sobrenome", sobrenome, contador[2])
                     contador[2]++
                 } else {
                     if (contador[1] < nome.length) {
                         carga[x] = nome.slice()[contador[1]];
-                        console.log("nome", nome, contador[1])
                         contador[1]++
                     } else {
                         carga[x] = 'Sz1'
@@ -68,13 +65,14 @@ export async function POST(req) {
     } else {
         const token = GeraToken(dados.nome, dados.sobrenome)
         let valores = []
-        pool.query(`INSERT INTO pessoa(email, nome, sobrenome, senha, token) VALUES ('${dados.email}', '${dados.nome}', '${dados.sobrenome}', '${dados.senha}', '${token}')`, (err, res) => {
+        await pool.query(`INSERT INTO pessoa(email, nome, sobrenome, senha, token) VALUES ('${dados.email}', '${dados.nome}', '${dados.sobrenome}', '${dados.senha}', '${token}') RETURNING *`, (err, res) => {
             if (err) {
                 console.log(err.stack);
-            } else {
-                console.log(res.rows[0]);
             }
         })
-        return NextResponse.json({ sucess: true, pessoa });
+
+        const pessoaRaw = await pool.query(`SELECT * FROM pessoa WHERE email = '${dados.email}'`)
+        const pessoa = pessoaRaw.rows
+        return NextResponse.json({ success: true, id: pessoa[0].id, token: pessoa[0].token});
     }
 }

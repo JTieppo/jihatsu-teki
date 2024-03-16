@@ -1,4 +1,7 @@
 export default function Login() {
+    function Login(){
+        
+    }
     return (
         <div className="flex min-h-screen flex-col items-center ">
             <img src="/login-desktop.jpeg" className="hidden lg:block min-h-screen max-h-screen min-w-full absolute" alt="" />
