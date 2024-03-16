@@ -1,12 +1,31 @@
-import { NextResponse } from "next/server"
+// import { Pool } from 'pg'
+// import pg from 'pg';
 
-export default function middleware(request){
+import { NextResponse } from "next/server"
+let id;
+const baseUrlDatabase = ''
+export default function middleware(request) {
+    // const { Pool } = pg;
+    // const pool = new Pool({
+    //     connectionString: process.env.POSTGRES_URL,
+    // })
+    // pool.query('SELECT * FROM pessoa', (err, res) => {
+    //     console.log(err, res)
+    //     pool.end()
+    // })
+
     const token = request.cookies.get('auth_token')?.value
-    
+    id = request.cookies.get('id')?.value
+    fetch(baseUrlDatabase, {
+        method: 'GET'
+    })
+    .then(response => response.json())
+    .then(response => console.log(response))
+
     const initURL = new URL('/', request.url)
 
-    if(!token || token != 'aSKJHFDDQPOI332484UYPIUHWEJFNOAISUDYiup3odfy932apjnwq3820pihqioeuy08173'){
-        if(request.nextUrl.pathname === '/'){
+    if (!token || id != id || token != token) {
+        if (request.nextUrl.pathname === '/') {
             return NextResponse.next();
         }
         return NextResponse.redirect(initURL);
@@ -14,5 +33,5 @@ export default function middleware(request){
 }
 
 export const config = {
-    matcher: ['/usuario/:path*']
+    matcher: [`/usuario/${id}:path*`]
 }

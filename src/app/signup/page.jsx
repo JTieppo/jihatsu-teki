@@ -36,7 +36,8 @@ export default function Signup() {
                 .then(response => {
                     console.log(response)
                     if(response.success){
-                        Cookie.set(response.nameCookie, response.cookie)
+                        Cookie.set(response.nameCookieA, response.cookieA)
+                        Cookie.set(response.nameCookieB, response.cookieB)
                         route.push(`/usuario/${response.id}`)
                     }
                 })
