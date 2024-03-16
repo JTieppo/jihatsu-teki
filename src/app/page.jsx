@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 export default function Home() {
-
     return (
         <main className="flex min-h-screen flex-col items-center ">
             <div className="flex z-10 w-full items-center">
