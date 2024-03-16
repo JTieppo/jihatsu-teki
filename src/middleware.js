@@ -3,7 +3,7 @@
 
 import { NextResponse } from "next/server"
 let id;
-const baseUrlDatabase = ''
+const baseUrlDatabase = 'http://127.0.0.1/api/auth/buscatoken'
 export default function middleware(request) {
     // const { Pool } = pg;
     // const pool = new Pool({
@@ -17,7 +17,8 @@ export default function middleware(request) {
     const token = request.cookies.get('auth_token')?.value
     id = request.cookies.get('id')?.value
     fetch(baseUrlDatabase, {
-        method: 'GET'
+        method: 'POST',
+        body: JSON.stringify({ id: id, token: token })
     })
     .then(response => response.json())
     .then(response => console.log(response))
