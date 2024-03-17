@@ -9,8 +9,8 @@ export async function POST(req) {
         connectionString: process.env.POSTGRES_URL,
     })
     const pessoa = await pool.query(`SELECT * FROM pessoa WHERE id = '${dados.id}'`)
-    if(dados.token == pessoa.token && dados.id == pessoa.id){
-        return NextResponse.json({validation: true, token})
+    if(dados.token == pessoa.rows[0].token && dados.id == pessoa.rows[0].id){
+        return NextResponse.json({validation: true, token: pessoa.rows[0].token, id: pessoa.rows[0].id})
     } else{
         return NextResponse.json({validation: false})
     }
