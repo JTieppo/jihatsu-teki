@@ -55,17 +55,17 @@ export async function POST(req) {
     const pool = new Pool({
         connectionString: process.env.POSTGRES_URL,
     })
-
+    
 
 
     const response = await pool.query(`SELECT * FROM pessoa WHERE email = '${dados.email}'`)
-
+    console.log(dados)
     if (response.rows.length > 0) {
         return NextResponse.json({ sucess: false, mailExiste: true })
     } else {
         const token = GeraToken(dados.nome, dados.sobrenome)
         let valores = []
-        await pool.query(`INSERT INTO pessoa(email, nome, sobrenome, senha, token) VALUES ('${dados.email}', '${dados.nome}', '${dados.sobrenome}', '${dados.senha}', '${token}') RETURNING *`, (err, res) => {
+        await pool.query(`INSERT INTO pessoa(email, nome, sobrenome, senha) VALUES ('${dados.email}', '${dados.nome}', '${dados.sobrenome}', '${dados.senha}', '${token}') RETURNING *`, (err, res) => {
             if (err) {
                 console.log(err.stack);
             }
@@ -73,6 +73,7 @@ export async function POST(req) {
 
         const pessoaRaw = await pool.query(`SELECT * FROM pessoa WHERE email = '${dados.email}'`)
         const pessoa = pessoaRaw.rows
+
         return NextResponse.json({ success: true, id: pessoa[0].id, token: pessoa[0].token});
     }
 }

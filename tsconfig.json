@@ -27,7 +27,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/app/test/page.jsx"  ],
+, "src/app/test/page.jsx", "src/data.js", "src/app/ui/card.jsx", "src/app/ui/filtro.jsx", "src/app/login/usuario/[id]/[companyName]/page.jsx", "src/app/layout.jsx", "src/app/app/page.jsx", "src/app/api/busca/route.js"  ],
   "exclude": [
     "node_modules"
   ]

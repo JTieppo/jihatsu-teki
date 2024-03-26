@@ -1,22 +1,25 @@
 "use client"
+import { useRouter } from "next/navigation";
 import { useState } from "react"
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
 import Cookie from 'js-cookie';
 
 export default function Signup() {
+    const route = useRouter();
     const [senha, setSenha] = useState('');
     const [confirmaSenha, setConfirmaSenha] = useState('');
     const [email, setEmail] = useState('');
     const [nome, setNome] = useState('');
     const [sobrenome, setSobrenome] = useState('');
     const [mostraSenha, setMostraSenha] = useState('password');
-    const [mostraSenhasCorrespondem, setMostraSenhasCorrespondem] = useState(false)
+    const [mostraSenhasCorrespondem, setMostraSenhasCorrespondem] = useState(false);
+    const [emailExiste, setEmailExiste] = useState(false);
 
     function MostraSenha() {
         if (mostraSenha == 'password') {
-            setMostraSenha('text')
+            setMostraSenha('text');
         } else {
-            setMostraSenha('password')
+            setMostraSenha('password');
         }
     }
 
@@ -26,7 +29,7 @@ export default function Signup() {
             setMostraSenhasCorrespondem(true);
             setTimeout(() => {
                 setMostraSenhasCorrespondem(false);
-            }, 3000)
+            }, 3000);
         } else {
             fetch('/api/signup', {
                 method: 'POST',
@@ -36,9 +39,17 @@ export default function Signup() {
                 .then(response => {
                     console.log(response)
                     if(response.success){
-                        Cookie.set(response.nameCookieA, response.cookieA)
-                        Cookie.set(response.nameCookieB, response.cookieB)
-                        route.push(`/usuario/${response.id}`)
+                        Cookie.set(response.nameCookieA, response.cookieA);
+                        Cookie.set(response.nameCookieB, response.cookieB);
+                        route.push(`/usuario/${response.id}`);
+                    } else{
+                        if(response.mailExiste){
+                            console.log("chamando")
+                            setEmailExiste(true);
+                            setTimeout(() => {
+                                setEmailExiste(false);
+                            }, 3000)
+                        }
                     }
                 })
         }
@@ -64,6 +75,9 @@ export default function Signup() {
             </form>
             <div className={`${mostraSenhasCorrespondem? 'absolute':'hidden'} flex h-full w-full items-end pointer-events-none`}>
                 <p className="mx-auto mb-20 bg-slate-500">As senhas não correspondem</p>
+            </div>
+            <div className={`flex absolute h-full w-full items-end transition-opacity duration-700 ease-in-out ${emailExiste ? 'opacity-100 pointer-events-none' : 'opacity-0 pointer-events-none'}`}>
+                <p className='mb-20 bg-red-950 p-4 rounded-lg mx-auto'>Email já registrado</p>
             </div>
         </div>
     )
