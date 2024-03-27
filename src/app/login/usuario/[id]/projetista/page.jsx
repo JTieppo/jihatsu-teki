@@ -1,8 +1,8 @@
 "use client"
 export default function Projetista(){
     return(
-        <div>
-            projetista
+        <div className="p-6">
+            página do coordenador
         </div>
     )
 }

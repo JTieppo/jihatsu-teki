@@ -1,11 +1,16 @@
+"use client"
 import Link from "next/link";
 import { data } from "../../data";
+import { usePathname } from "next/navigation";
 
 
 export default function Card(id) {
     var componentData = data.find(component => component.id == id);
+    const idPath = usePathname().split('/')[3];
+    console.log("id, idpath: ",id, idPath)
+
     return (
-        <Link href={`/${id}`} id="card-company" className="relative mt-20 rounded-lg p-8 mr-10 lg:mr-20">
+        <Link href={`/login/usuario/${idPath}/voluntario/${id.id}`} id="card-company" className="relative mt-20 rounded-lg p-8 mr-10 lg:mr-20 ">
             <div className="absolute flex w-12 h-12 rounded-2xl items-center" style={{ backgroundColor: componentData?.logoBackground, marginTop: "-55px" }}>
                 <img className="mx-auto" src={componentData?.logo} alt="" />
             </div>

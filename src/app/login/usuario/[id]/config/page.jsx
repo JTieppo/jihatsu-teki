@@ -1,7 +1,7 @@
 "use client"
 export default function Config(){
     return(
-        <div>
+        <div className="p-6">
             página de configuraçoes do usuário
         </div>
     )

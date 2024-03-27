@@ -20,7 +20,7 @@ export default function Filtro(viFiltro) {
                                 <p className="ml-1">time</p>
                                 <p className="ml-1">only</p>
                             </div>
-                            <button className="mt-2 rounded bg-[#5964E0] h-10 w-full">search</button>
+                            <button className="mt-2 rounded bg-[#00D286] h-10 w-full">search</button>
                         </div>
                     </div>
                 </div>

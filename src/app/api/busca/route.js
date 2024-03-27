@@ -61,7 +61,11 @@ export const POST = async (req) => {
             var ids = testedois.map(item => item.id);
         }
     }
-
-    // return NextResponse.json({});
+    
     return NextResponse.json({ids});
+}
+
+export async function GET(){
+    const ids = [1]
+    return NextResponse.json(ids)
 }

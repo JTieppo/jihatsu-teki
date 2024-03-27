@@ -2,13 +2,19 @@
 import Cookie from 'js-cookie'
 import { useState } from "react"
 import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 export default function Login() {
     const router = useRouter();
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [senhaEmailInvalidos, setSenhaEmailInvalidos] = useState(false);
-
+    const cookieT = Cookies.get('auth_token')
+    const cookieI = Cookies.get('auth_token')
+    console.log(cookieT)
+    // if(cookieT != undefined){
+    //     router.push('/login/${cookieI}/${parametro}')
+    // }
 
     function Login() {
         event.preventDefault();
@@ -33,14 +39,14 @@ export default function Login() {
             })
     }
     return (
-        <div className="flex min-h-screen flex-col items-center ">
-            <img src="/login-desktop.jpeg" className="hidden lg:block min-h-screen max-h-screen min-w-full absolute" alt="" />
-            <img src="/login-mobile.jpeg" className="lg:hidden min-h-screen max-h-screen min-w-full absolute" alt="" />
-            <form className="flex flex-col z-10 w-full items-center my-auto bg-[#38383861] rounded-xl max-w-80 p-8" onSubmit={Login}>
-                <h1 className="text-green-200 text-4xl mb-10">Login</h1>
-                <input className="text-black p-2 px-4 rounded-full w-64" type="mail" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                <input className="mt-4 text-black p-2 px-4 rounded-full w-64" type="password" value={senha} onChange={(e) => setSenha(e.target.value)} required />
-                <input type="submit" className="mt-4 bg-green-200 text-black p-2 px-4 rounded-full w-64 cursor-pointer" value={'Login'}></input>
+        <div className="h-screen">
+            <form className="flex flex-col w-96 mx-auto" onSubmit={Login}>
+                <h1 className="text-4xl mx-auto mb-4">Login</h1>
+                <label htmlFor="email">Email</label>
+                <input className="text-black" name='email' type="mail" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                <label htmlFor="senha">Senha</label>
+                <input className="text-black" name='senha' type="password" value={senha} onChange={(e) => setSenha(e.target.value)} required />
+                <input type="submit" className="" value={'Login'}></input>
             </form>
             <div className={`flex absolute h-full items-end transition-opacity duration-700 ease-in-out ${senhaEmailInvalidos ? 'opacity-100 pointer-events-none' : 'opacity-0 pointer-events-none'}`}>
                 <p className='mb-20 bg-red-950 p-4 rounded-lg'>Email ou senha inválidos</p>
