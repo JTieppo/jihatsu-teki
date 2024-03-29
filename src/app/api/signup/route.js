@@ -56,16 +56,15 @@ export async function POST(req) {
         connectionString: process.env.POSTGRES_URL,
     })
     
-
+console.log(dados)
 
     const response = await pool.query(`SELECT * FROM pessoa WHERE email = '${dados.email}'`)
-    console.log(dados)
     if (response.rows.length > 0) {
         return NextResponse.json({ sucess: false, mailExiste: true })
     } else {
-        const token = GeraToken(dados.nome, dados.sobrenome)
+        const token = GeraToken(dados.nome.split(' ')[0], dados.nome.split(' ')[1])
         let valores = []
-        await pool.query(`INSERT INTO pessoa(email, nome, sobrenome, senha) VALUES ('${dados.email}', '${dados.nome}', '${dados.sobrenome}', '${dados.senha}', '${token}') RETURNING *`, (err, res) => {
+        await pool.query(`INSERT INTO pessoa(email, nome, senha, token, data_nascimento, escolaridade, sexo, cidade) VALUES ('${dados.email}', '${dados.nome}', '${dados.senha}', '${token}', '${dados.dataNascimento}', '${dados.escolaridade}', '${dados.sexo}', '${dados.cidade}') RETURNING *`, (err, res) => {
             if (err) {
                 console.log(err.stack);
             }
@@ -73,7 +72,6 @@ export async function POST(req) {
 
         const pessoaRaw = await pool.query(`SELECT * FROM pessoa WHERE email = '${dados.email}'`)
         const pessoa = pessoaRaw.rows
-
-        return NextResponse.json({ success: true, id: pessoa[0].id, token: pessoa[0].token});
+        return NextResponse.json({ success: true, id: pessoa[0].id, nameCookieA: 'auth_id', nameCookieB: 'auth_token', cookieA: pessoa[0].id, cookieB: pessoa[0].token});
     }
 }

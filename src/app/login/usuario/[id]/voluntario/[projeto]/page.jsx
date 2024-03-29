@@ -9,6 +9,7 @@ export default function Company() {
     const companyData = data.find(dados => dados.id == +companyID);
     var urlParts = companyData?.website.split('com/');
     const site = urlParts?.[1] ?? ' ';
+    
 
     const [showSnackbar, setShowSnackbar] = useState('');
     const botaoDesativado = () => {
@@ -17,7 +18,7 @@ export default function Company() {
             setShowSnackbar('');
         }, 3000);
     };
-
+    
     return (
         <div className="flex flex-col w-full justify-between">
             <div className="flex flex-col w-[80%] mx-auto rounded mt-10 p-6" id="card">
@@ -34,7 +35,9 @@ export default function Company() {
             <div className="h-20 w-full flex flex-row justify-between items-center px-[10%]" id="card">
                 <div className="hidden md:flex flex-col">
                     <p className="text-lg">{companyData?.position}</p>
-                    <p className="text-sm text-[#00D286]">Jihatsu-Teki</p>
+                    <p className="text-sm text-[#00D286]">Jihatsu-Teki
+                    
+                    </p>
                 </div>
                 <button className="p-2 rounded w-full md:w-32 bg-[#00D286]" id="" onClick={botaoDesativado}>Apply Now</button>
             </div>

@@ -14,6 +14,10 @@ export default function Signup() {
     const [mostraSenha, setMostraSenha] = useState('password');
     const [mostraSenhasCorrespondem, setMostraSenhasCorrespondem] = useState(false);
     const [emailExiste, setEmailExiste] = useState(false);
+    const [dataNascimento, setDataNascimento] = useState('');
+    const [escolaridade, setEscolaridade] = useState('');
+    const [sexo, setSexo] = useState('');
+    const [cidade, setCidade] = useState('');
 
     function MostraSenha() {
         if (mostraSenha == 'password') {
@@ -25,6 +29,7 @@ export default function Signup() {
 
     function CriarConta(e) {
         e.preventDefault();
+        const nomeTratado = nome + ' ' + sobrenome
         if (senha != confirmaSenha) {
             setMostraSenhasCorrespondem(true);
             setTimeout(() => {
@@ -33,15 +38,14 @@ export default function Signup() {
         } else {
             fetch('/api/signup', {
                 method: 'POST',
-                body: JSON.stringify({ nome: nome, sobrenome: sobrenome, senha: senha, email: email })
+                body: JSON.stringify({ nome: nomeTratado, senha: senha, email: email, dataNascimento: dataNascimento, cidade: cidade, escolaridade: escolaridade, sexo: sexo })
             })
                 .then(response => response.json())
                 .then(response => {
-                    console.log(response)
                     if(response.success){
                         Cookie.set(response.nameCookieA, response.cookieA);
                         Cookie.set(response.nameCookieB, response.cookieB);
-                        route.push(`/usuario/${response.id}`);
+                        route.push(`/login/usuario/${response.id}`);
                     } else{
                         if(response.mailExiste){
                             console.log("chamando")
@@ -72,26 +76,26 @@ export default function Signup() {
                 <label htmlFor="">Confirme sua senha</label>
                 <input type={mostraSenha} required value={confirmaSenha} onChange={(e) => setConfirmaSenha(e.target.value)} />
                 <label htmlFor="datanascimento">Data Nascimento</label>
-                <input type="date" name="datanascimento" required/>
+                <input type="date" name="datanascimento" value={dataNascimento} onChange={e => setDataNascimento(e.target.value)} required/>
                 <label htmlFor="cidade">Cidade</label>
-                <input type="text" name="cidade" required/>
+                <input type="text" name="cidade" value={cidade} onChange={e => setCidade(e.target.value)} required/>
                 <label htmlFor="escolaridade">Escolaridade</label>
-                <select name="escolaridade" id="" required>
+                <select name="escolaridade" id="" value={escolaridade} onChange={e => setEscolaridade(e.target.value)} required>
                     <option value="">Selecione</option>
-                    <option value="fundamental-incompleto">Fundamental - incompleto</option>
-                    <option value="fundamental-completo">Fundamental - completo</option>
-                    <option value="primeiro-grau-incompleto">1º grau - incompleto</option>
-                    <option value="primeiro-grau-cursando">1º grau - cursando</option>
-                    <option value="primeiro-grau-completo">1º grau - completo</option>
-                    <option value="superior-incompleto">Ensino superior - inconpleto</option>
-                    <option value="superior-cursando">Ensino superior - cursando</option>
-                    <option value="superior-completo">Ensino superior - completo</option>
-                    <option value="doutorado-mestrado-cursando">Doutorado/mestrado - cursando</option>
-                    <option value="doutorado-mestrado-completo">Doutorado/mestrado - completo</option>
+                    <option value="fundamental incompleto">Fundamental - incompleto</option>
+                    <option value="fundamental completo">Fundamental - completo</option>
+                    <option value="primeiro grau incompleto">1º grau - incompleto</option>
+                    <option value="primeiro grau cursando">1º grau - cursando</option>
+                    <option value="primeiro grau completo">1º grau - completo</option>
+                    <option value="superior incompleto">Ensino superior - inconpleto</option>
+                    <option value="superior cursando">Ensino superior - cursando</option>
+                    <option value="superior completo">Ensino superior - completo</option>
+                    <option value="doutorado mestrado cursando">Doutorado/mestrado - cursando</option>
+                    <option value="doutorado mestrado completo">Doutorado/mestrado - completo</option>
                 </select>
                 <label htmlFor="sexo">Sexo</label>
-                <select name="sexo" id="" defaultValue={'selecione'} required>
-                    {/* <option value="">Selecione</option> */}
+                <select name="sexo" id="" defaultValue={'selecione'} value={sexo} onChange={e => setSexo(e.target.value)} required>
+                    <option value="">Selecione</option>
                     <option value="Masculino">Masculino</option>
                     <option value="Feminino">Feminino</option>
                     <option value="Outro">Outro</option>

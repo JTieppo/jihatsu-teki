@@ -8,7 +8,6 @@ export async function middleware(request) {
     const token = request.cookies.get('auth_token')?.value
     const id = request.cookies.get('auth_id')?.value
     const idPath = request.url.split('/')[5]
-    console.log(request.url)
 
     if (token != undefined && id != undefined) {
         await fetch(baseUrlDatabase, {
@@ -17,10 +16,8 @@ export async function middleware(request) {
         })
             .then(response => response.json())
             .then(response => {
-                console.log("reponse",response, id)
                 if (!response.validation || !token || token != response.token || id != response.id) {
                     redireciona = true
-                    console.log("auto?")
                 }
             })
     }else {

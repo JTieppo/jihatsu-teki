@@ -3,5 +3,5 @@ export default function Dashboard(){
         <div className="h-screen p-6">
             dashboard usuario
         </div>
-    )
+    ) 
 }

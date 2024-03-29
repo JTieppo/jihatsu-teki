@@ -7,9 +7,7 @@ export async function POST(req) {
     const pool = new Pool({
         connectionString: process.env.POSTGRES_URL,
     });
-    
     const pessoa = await pool.query(`SELECT * FROM pessoa WHERE email = '${dados.email}'`);
-    console.log("dados", dados.email)
  
     if (pessoa.rows[0] != undefined) {
         if (pessoa.rows[0].senha == dados.senha) {
