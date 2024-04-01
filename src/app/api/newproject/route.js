@@ -10,7 +10,7 @@ function VerificaPrioridade(data) {
     } else if (dataAtual.getFullYear() == dataTratado[0]) {
         prioridade = 'Média';
     } else {
-        prioridade = 'Minima'
+        prioridade = 'Mínima'
     }
     return prioridade
 }
@@ -28,6 +28,8 @@ function VerificaStatus(data) {
 export async function POST(req) {
     const dataCriacao = new Date()
     const dados = await req.json();
+    let nomeCriador;
+
     console.log("chamando rota",dados);
     const { Pool } = pg;
     const pool = new Pool({
@@ -37,11 +39,10 @@ export async function POST(req) {
     const prioridade = VerificaPrioridade(dados.dataFim);
     const status = VerificaStatus(dataCriacao)
     
-    const nomeCriador = await pool.query(`SELECT nome FROM pessoa WHERE id = '${dados.idResponsavel}'`, (err, res)=>{
-        console.log("err...",err)
-        return res.rows[0].nome
+    await pool.query(`SELECT nome FROM pessoa WHERE id = '${dados.idResponsavel}'`, (err, res)=>{
+        nomeCriador = res.rows[0].nome
+        pool.query(`INSERT INTO projetos (nome, nome_criador, id_criador, data_criacao, descricao, status, prioridade, ultima_atualizacao, endereco, cidade, representante_instituicao, data_inicio, data_fim, nome_instituicao) values ('${dados.nomeProjeto}', '${nomeCriador}', ${dados.idResponsavel}, '${dataCriacao}', '${dados.descricao}','${status}', '${prioridade}', '${dataCriacao}','${dados.endereco}', '${dados.cidade}', ${dados.representanteInstituicao}, '${dados.dataInicio}', '${dados.dataFim}', '${dados.nomeInstituicao}')`)
     })
-    console.log("dados resp........",nomeCriador)
-    pool.query(`INSERT INTO projetos (nome, nome_criador, id_criador, data_criacao, descricao, status, prioridade, ultima_atualizacao, endereco, cidade, representante_instituicao, data_inicio, data_fim) values ('${dados.nomeProjeto}', '${nomeCriador}', ${dados.idResponsavel}, '${dataCriacao}', '${dados.descricao}','${status}', '${prioridade}', '${dataCriacao}','${dados.endereco}', '${dados.cidade}', ${dados.representanteInstituicao}, '${dados.dataInicio}', '${dados.dataFim}')`)
+    
     return NextResponse.json({})
 } 
