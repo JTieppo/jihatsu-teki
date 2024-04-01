@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import Cookies from "js-cookie";
 let id;
 
-const baseUrlDatabase = 'http://jihatsu-teki.vercel.app/api/auth/buscatoken'
+const baseUrlDatabase = 'https://jihatsu-teki.vercel.app/api/auth/buscatoken'
 export async function middleware(request) {
     let redireciona = false;
     const token = request.cookies.get('auth_token')?.value
