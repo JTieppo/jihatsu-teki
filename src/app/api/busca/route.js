@@ -37,7 +37,11 @@ export const POST = async (req) => {
         keys: [
             "cidade",
             "endereco",
-            "nome"
+            "nome",
+            "nome_criador",
+            "descricao",
+            "status",
+            "prioridade"
         ]
     };
 
