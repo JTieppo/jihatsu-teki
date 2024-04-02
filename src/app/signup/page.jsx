@@ -1,8 +1,10 @@
 "use client"
 import { useRouter } from "next/navigation";
-import { useState } from "react"
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
+import { useState } from "react";
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import Cookie from 'js-cookie';
+import Link from 'next/link';
+
 
 export default function Signup() {
     const route = useRouter();
@@ -101,6 +103,8 @@ export default function Signup() {
                     <option value="Outro">Outro</option>
                 </select>
                 <input type="submit" value={'Criar conta'} className="text-white" required/>
+                <div className="p-1 bg-green-500"></div>
+                <Link className="" href={"/login"}>Já tenho uma conta</Link>
             </form>
             <div className={`${mostraSenhasCorrespondem? 'absolute':'hidden'} flex h-full w-full items-end pointer-events-none`}>
                 <p className="mx-auto mb-20 bg-white">As senhas não correspondem</p>
