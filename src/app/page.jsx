@@ -12,16 +12,22 @@ export default function Home() {
     return (
         <main className='flex flex-col h-screen'>
             <header className="flex flex-col w-full">
-                <div className="flex flex-row justify-between min-w-screen text-[#00D286] mb-16 m-10 mx-24">
-                    <Link href={'/'} className="cursor-pointer text-2xl text-[#FB443A]">Jihatsu-Teki</Link>
-                    <Link href={'/sobre'} className="cursor-pointer">Sobre</Link>
-                    <Link href={'/'} className="cursor-pointer">Link2</Link>
-                    <Link href={'/login'} className='cursor-pointer' >Login</Link>
-                    <Link href={'/signup'} className='cursor-pointer'>Signup</Link>
+                <div className="flex bg-black">
+                    <Link href={'/'} className="">Jihatsu-Teki</Link>
+                    <Link href={'/sobre'} className="">Sobre</Link>
+                    <Link href={'/'} className="">Link2</Link>
+                    <Link href={'/login'} className='' >Login</Link>
+                    <Link href={'/signup'} className=''>Signup</Link>
                 </div>
             </header>
             
-            <p className='mx-auto text-2xl'>content main</p>
+            <div className='bg-gradient-to-l via-black from-purple-950 to-purple-950'>
+                <h1 className='opacity-80'>Transforme sua vontade e ação e participe da mudança!</h1>
+                <p className=''>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, temporibus ut! Aspernatur, porro nisi. Iste maxime similique omnis aspernatur commodi voluptatem natus minima harum, illum, id sequi quibusdam, eaque odio.</p>
+            </div>
+
+
+
         </main>
     );
 }
