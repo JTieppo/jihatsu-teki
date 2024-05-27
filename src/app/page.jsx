@@ -56,7 +56,7 @@ export default function Home() {
               TRANSFORME SUA <br />
               VONTADE EM AÇÃO E <br />
               PARTICIPE DA{" "}
-              <span className="border-b-4 border-green-700">MUDANÇA!</span>
+              <span className="border-b-4 border-green-700 italic">MUDANÇA!</span>
             </h1>
             <p className="text-sm text-[#D0D0D0] leading-[19.6px] tracking-[1.12px]">
               A Jihatsu-teki conecta ações de limpeza comunitárias e voluntários{" "}
