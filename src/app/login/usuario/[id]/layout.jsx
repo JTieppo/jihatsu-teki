@@ -13,7 +13,7 @@ export default function UserLayout({ children }) {
 
 
     return (
-        <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col min-h-screen bg-gradient-to-r from-emerald-950 to-[#000a03]">
             <HeaderInside />
             <div className='flex flex-row'>
                 <div className='flex flex-row text-end p-14'>
