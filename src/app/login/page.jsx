@@ -13,8 +13,8 @@ export default function Login() {
     const cookieI = Cookies.get('auth_token')
     
 
-    function Login() {
-        event.preventDefault();
+    function Login(e) {
+        e.preventDefault();
         fetch('/api/login', {
             method: 'POST',
             body: JSON.stringify({ email: email, senha: senha })
@@ -22,7 +22,6 @@ export default function Login() {
             .then(response => response.json())
             .then(response => {
                 if (response.id > 0) {
-                    console.log("if")
                     Cookie.set('auth_id', response.id)
                     Cookie.set('auth_token', response.token)
                     router.push(`/login/usuario/${response.id}`)
@@ -38,7 +37,7 @@ export default function Login() {
 
     return (
         <div className=" h-screen">
-            <form className="flex flex-col w-96 mx-auto absolute" onSubmit={Login}>
+            <form className="flex flex-col w-96 mx-auto absolute" onSubmit={(e)=>Login(e)}>
                 <h1 className="text-4xl mx-auto mb-4">Login</h1>
                 <label htmlFor="email">Email</label>
                 <input className="text-black" name='email' type="mail" value={email} onChange={(e) => setEmail(e.target.value)} required />
