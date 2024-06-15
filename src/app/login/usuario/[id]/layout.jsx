@@ -3,32 +3,29 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Cog6ToothIcon, Bars3Icon } from '@heroicons/react/24/outline'
 import { useState } from 'react'
+import HeaderInside from '@/app/ui/header-inside'
 
 
 export default function UserLayout({ children }) {
-    const idPath = usePathname().split('/')[3];
+    const path = usePathname().split('/');
+    const idPath = path[3]
     const [hamburger, setHamburger] = useState(false);
 
 
     return (
-        <div className="flex flex-row">
-            <div className={`${hamburger ? 'w-48' : 'w-10'} transition-all duration-500 ease-in-out h-screen border-r-[#FB443A] border-r bg-black flex flex-col justify-between py-6`}>
-                <div className='flex flex-row'>
-                    <button id='hamburger' className='w-full ml-2' onClick={() => setHamburger(!hamburger)}><Bars3Icon className='w-6'></Bars3Icon></button>
-                    <p className={`${hamburger ? 'opacity-100 duration-500 px-2' : 'opacity-0 duration-75'} transition-all transform ease-in bg-[#22b981] w-full`}>Menu</p>
+        <div className="flex flex-col min-h-screen">
+            <HeaderInside />
+            <div className='flex flex-row'>
+                <div className='flex flex-row text-end p-14'>
+                    <div className='flex flex-col'>
+                        <Link href={`/login/usuario/${idPath}/`} className={`${path.length > 4 ? '' : 'bg-gradient-to-l from-emerald-900 '} p-2`}>Meus projetos</Link>
+                        <Link href={`/login/usuario/${idPath}/institution`} className={`${path.length > 4 ? path[4] == 'institution' ? 'bg-gradient-to-l from-emerald-900 to-transparent' : '' : ''} p-2`}>Instituições</Link>
+                        <Link href={`/login/usuario/${idPath}/config`} className={`${path.length > 4 ? path[4] == 'config' ? 'bg-gradient-to-l from-emerald-900 to-transparent' : '' : ''} p-2`}>Dados pessoais</Link>
+                    </div>
+                    <div className='bg-gradient-to-b from-transparent via-emerald-600 to-transparent w-[1px] max-h-64 h-64'></div>
                 </div>
-                <div className='flex flex-col'>
-                    <Link href={`/login/usuario/${idPath}/`} className={`${hamburger ? 'opacity-100 duration-500 px-2 mt-2' : 'opacity-0 duration-75'} transition-all transform ease-in bg-[#22b981] w-full`} onClick={() => setHamburger(!hamburger)}>Inicio</Link>
-                    <Link href={`/login/usuario/${idPath}/voluntario`} className={`${hamburger ? 'opacity-100 duration-500 px-2 mt-2' : 'opacity-0 duration-75 pointer-events-none'} transition-all transform ease-in bg-[#22b981] w-full`} onClick={() => setHamburger(!hamburger)}>Se voluntariar</Link>
-                    <Link href={`/login/usuario/${idPath}/projetista`} className={`${hamburger ? 'opacity-100 duration-500 px-2 mt-2' : 'opacity-0 duration-75 pointer-events-none'} transition-all transform ease-in bg-[#22b981] w-full`} onClick={() => setHamburger(!hamburger)}>Criar projeto</Link>
-                    <Link href={`/login/usuario/${idPath}/projetista/editarprojeto`} className={`${hamburger ? 'opacity-100 duration-500 px-2 mt-2' : 'opacity-0 duration-75 pointer-events-none'} transition-all transform ease-in bg-[#22b981] w-full`} onClick={() => setHamburger(!hamburger)}>Editar projeto</Link>
-                </div>
-                <div className='flex flex-row'>
-                    <Link href={`/login/usuario/${idPath}/config`} className='w-full'><Cog6ToothIcon className='w-6 ml-2'></Cog6ToothIcon></Link>
-                    <p className={`${hamburger ? 'opacity-100 duration-500 px-2' : 'opacity-0 duration-75'} transition-all transform ease-in bg-[#22b981] w-full`}>Configurações</p>
-                </div>
+                {children}
             </div>
-            {children}
         </div>
     )
 }
