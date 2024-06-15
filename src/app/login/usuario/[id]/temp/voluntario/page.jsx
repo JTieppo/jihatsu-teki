@@ -1,7 +1,7 @@
 "use client"
 import { MagnifyingGlassIcon, MapPinIcon, CheckIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
-import Card from "../../../../ui/card";
+import Card from "@/app/ui/card";
 import Image from 'next/image'
 import { usePathname } from "next/navigation";
 
