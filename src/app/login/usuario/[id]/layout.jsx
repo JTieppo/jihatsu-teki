@@ -3,8 +3,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Cog6ToothIcon, Bars3Icon } from '@heroicons/react/24/outline'
 import { useState } from 'react'
-import HeaderInside from '@/app/ui/header-inside'
-
+import HeaderInside from '../../../ui/header-inside'
 
 export default function UserLayout({ children }) {
     const path = usePathname().split('/');
@@ -16,7 +15,7 @@ export default function UserLayout({ children }) {
         <div className="flex flex-col min-h-screen bg-gradient-to-r from-emerald-950 to-[#000a03]">
             <HeaderInside />
             <div className='flex flex-row'>
-                <div className='flex flex-row text-end p-14'>
+                <div className='flex flex-row text-end w-72 py-14 pl-14'>
                     <div className='flex flex-col'>
                         <Link href={`/login/usuario/${idPath}/`} className={`${path.length > 4 ? '' : 'bg-gradient-to-l from-emerald-900 '} p-2`}>Meus projetos</Link>
                         <Link href={`/login/usuario/${idPath}/institution`} className={`${path.length > 4 ? path[4] == 'institution' ? 'bg-gradient-to-l from-emerald-900 to-transparent' : '' : ''} p-2`}>Instituições</Link>
