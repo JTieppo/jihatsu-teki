@@ -21,6 +21,7 @@ export default function CreateProject(paramGeral) {
 
 
     function cadastrarProjeto() {
+        
         fetch('/api/newproject', {
             method: "POST",
             body: JSON.stringify({ nomeProjeto: nome, idResponsavel: idPath, cidade: cidade, endereco: endereco, responsavel: responsavel, dataInicio: dataInicio, horaInicio: horaInicio, dataFim: dataEncerramento, horaFim: horaEncerramento, descricao: descricao, nomeInstituicao: nomeInstituicao, representanteInstituicao: responsavelInstituicao, telefone: telefone })
@@ -202,7 +203,7 @@ export default function CreateProject(paramGeral) {
                                 </div>
                                 <div>
                                     <button className="w-56 px-6 py-4 bg-button-green rounded-xl" onClick={() => cadastrarProjeto()}>
-                                        Próximo
+                                        finalizar cadastro
                                     </button>
                                 </div>
                             </div>
