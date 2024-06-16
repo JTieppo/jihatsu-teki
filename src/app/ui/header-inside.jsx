@@ -14,12 +14,12 @@ export default function HeaderInside() {
                     />
                     <div className="flex">
                         <div className="flex flex-col justify-center">
-                            <Link href={"/"} className="text-xs font-bold text-[#D0D0D0]">
+                            <Link href={"/"} className="text-xs font-bold bg-white-gradient white-gradient">
                                 自発的
                             </Link>
                             <Link
                                 href={"/"}
-                                className="text-xl font-extrabold text-[#D0D0D0]"
+                                className="text-xl font-extrabold bg-white-gradient white-gradient"
                             >
                                 Jihatsu-teki
                             </Link>

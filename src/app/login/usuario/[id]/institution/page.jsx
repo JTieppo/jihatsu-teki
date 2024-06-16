@@ -5,7 +5,7 @@ export default function Projects() {
         <section className="flex flex-col gap-4 w-full">
           <div className="flex flex-row justify-between">
             <div>
-              <h1 className="text-2xl font-black">Instituição</h1>
+              <h1 className="text-2xl bg-white-gradient white-gradient font-black">Instituição</h1>
             </div>
             <div className="flex flex-row gap-[10px]">
               <button className="w-48 h-10  bg-button-green rounded-xl">
