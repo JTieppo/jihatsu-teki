@@ -81,5 +81,6 @@ export async function GET() {
     })
     const projetosRaw = await pool.query(`SELECT * FROM projetos`)
     const projetos = projetosRaw.rows
+    console.log(projetosRaw)
     return NextResponse.json(projetos)
 }

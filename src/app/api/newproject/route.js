@@ -1,29 +1,6 @@
 import pg from 'pg';
 import { NextResponse } from 'next/server'
 
-function VerificaPrioridade(data) {
-    const dataAtual = new Date()
-    const dataTratado = data.split('-');
-    let prioridade = '';
-    if (dataAtual.getFullYear() == data[0] && dataAtual.getMonth() == dataTratado[1]) {
-        prioridade = 'Alta';
-    } else if (dataAtual.getFullYear() == dataTratado[0]) {
-        prioridade = 'Média';
-    } else {
-        prioridade = 'Mínima'
-    }
-    return prioridade
-}
-function VerificaStatus(data) {
-    const dataAtual = new Date()
-    let status = '';
-    if (dataAtual.getDate() < data.getDate() && dataAtual.getMonth() < data.getMonth() && dataAtual.getFullYear() < data.getFullYear()) {
-        status = 'A iniciar';
-    } else {
-        status = 'Em execução';
-    }
-    return status;
-}
 
 export async function POST(req) {
     const dataCriacao = new Date()
@@ -36,13 +13,11 @@ export async function POST(req) {
         connectionString: process.env.POSTGRES_URL,
     })
 
-    const prioridade = VerificaPrioridade(dados.dataFim);
-    const status = VerificaStatus(dataCriacao)
     
-    await pool.query(`SELECT nome FROM pessoa WHERE id = '${dados.idResponsavel}'`, (err, res)=>{
-        nomeCriador = res.rows[0].nome
-        pool.query(`INSERT INTO projetos (nome, nome_criador, id_criador, data_criacao, descricao, status, prioridade, ultima_atualizacao, endereco, cidade, representante_instituicao, data_inicio, data_fim, nome_instituicao) values ('${dados.nomeProjeto}', '${nomeCriador}', ${dados.idResponsavel}, '${dataCriacao}', '${dados.descricao}','${status}', '${prioridade}', '${dataCriacao}','${dados.endereco}', '${dados.cidade}', ${dados.representanteInstituicao}, '${dados.dataInicio}', '${dados.dataFim}', '${dados.nomeInstituicao}')`)
-    })
     
+    
+    nomeCriador = await pool.query(`SELECT nome FROM pessoa WHERE id = '${dados.idResponsavel}'`)
+    
+    await pool.query(`INSERT INTO projetos (nome, nome_criador, id_criador, descricao, finalizado, endereco, cidade, data_inicio, data_fim, nome_instituicao, telefone, responsavel, hora_inicio, hora_fim) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)`, [dados.nomeProjeto, nomeCriador.rows[0].nome, dados.idResponsavel, dados.descricao, false, dados.endereco, dados.cidade, dados.dataInicio, dados.dataFim, dados.nomeInstituicao, dados.telefone, dados.responsavel, dados.horaInicio, dados.horaFim])
     return NextResponse.json({})
 } 

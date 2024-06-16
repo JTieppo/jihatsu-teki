@@ -11,9 +11,22 @@ import Header from "./ui/header";
 
 
 export default function Home() {
+    const [response, setResponse] = useState([])
+
+
+    useEffect(() => {
+        fetch('/api/busca', {
+            method: "GET",
+        })
+            .then(response => response.json())
+            .then(response => setResponse(response))
+    }, [])
+
+console.log("response....",response)
+
     return (
         <main className="flex flex-col h-screen">
-            <section className="bg-gradient-to-r from-emerald-950 to-[#000a03]">
+            <section className="">
                 <Header />
 
 
@@ -48,8 +61,8 @@ export default function Home() {
                 </section>
             </section>
             {/* Carrossel da home */}
-            <section className="bg-[#001012] p-16">
-                <div className="flex justify-between items-center mb-8">
+            <section className="bg-[#001012] py-16">
+                <div className="flex justify-between items-center mb-8 px-16">
                     <p className="bg-white-gradient white-gradient font-medium tracking-wider">ENCONTRE UMA AÇÃO PERTO DE VOCÊ</p>
                     <div className="flex gap-8 items-center font-thin">
                         <button className="flex flex-row font-thin text-sm tracking-wider"><MagnifyingGlassIcon className="w-4 h-4 self-center mr-4" /> Procurar cidade</button>
@@ -57,8 +70,8 @@ export default function Home() {
                     </div>
                 </div>
 
-                <div className="">
-                    <CardCarrossel />
+                <div className="flex gap-4 overflow-x-auto px-16 scrollbar-hide">
+                    {response.map((item, index)=><CardCarrossel key={index} item={item}/>)}
                 </div>
             </section>
 

@@ -4,7 +4,7 @@
 
 @font-face {
     font-family: DMSans;
-    src: url('/DMSans/DM_Sans/DMSans-VariableFont_opsz,wght.ttf') format('truetype');
+    src: url('/fonts/DMSans/DM_Sans/DMSans-VariableFont_opsz,wght.ttf') format('truetype');
 }
 
 :root {
@@ -27,11 +27,7 @@
 html,
 body {
     color: rgb(var(--foreground-color));
-    background: linear-gradient(200deg, var(--background-segundo-plano), var(--gradient-color));
     font-family: DMSans;
-    background: linear-gradient(to bottom,
-            transparent,
-            var(--gradient-color)) var(--background-primeiro-plano);
 }
 
 
@@ -64,7 +60,16 @@ button:hover:not(#hamburger),
     transform: scale(1.1);
 }
 
-.linha-gradiente{
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.linha-gradiente {
     background: linear-gradient(to bottom,
             transparent,
             var(--gradient-color)) var(--background-primeiro-plano);
