@@ -2,7 +2,7 @@ import Link from "next/link";
 export default function Dashboard() {
   return (
     <div className="flex flex-row  w-full">
-      <main className="flex flex-row w-full pt-14 pr-16">
+      <main className="flex flex-row w-full pt-16 pr-16">
         <section className="flex flex-col gap-4 w-full">
           <div className="flex flex-row justify-between">
             <div>
