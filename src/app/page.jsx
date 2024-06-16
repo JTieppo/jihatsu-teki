@@ -22,7 +22,7 @@ export default function Home() {
             .then(response => setResponse(response))
     }, [])
 
-console.log("response....",response)
+
 
     return (
         <main className="flex flex-col h-screen">
@@ -60,6 +60,8 @@ console.log("response....",response)
                     <div class="bg-white opacity-15 border border-dashed border-[#009F66] p-4"></div>
                 </section>
             </section>
+            
+            
             {/* Carrossel da home */}
             <section className="bg-[#001012] py-16">
                 <div className="flex justify-between items-center mb-8 px-16">

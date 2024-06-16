@@ -1,49 +1,8 @@
 import { NextResponse } from 'next/server'
 import pg from 'pg';
 
-function GeraToken(nome, sobrenome) {
-    let carga = [];
-    let token;
-    let contador = [];
-    for(let t = 0; t <= 2; t++){
-        contador[t] = 0;
-    }
-    for (let x = 1; x < 28; x++) {
-        if (x != 0 && x != 2 && x != 6 && x != 5 && x != 9 && x != 12 && x != 17 && x != 21 && x != 22 && x != 27) {
-            carga[x] = (Math.random() * 10000).toFixed()
-        }
-        else {
-            if (contador[0] < (nome.length + sobrenome.length)) {
-                if (contador[0] % 2 == 0 && contador[2] < sobrenome.length) {
-                    carga[x] = sobrenome.slice()[contador[2]];
-                    contador[2]++
-                } else {
-                    if (contador[1] < nome.length) {
-                        carga[x] = nome.slice()[contador[1]];
-                        contador[1]++
-                    } else {
-                        carga[x] = 'Sz1'
-                    }
-                }
-            } else {
-                if (contador[0] % 2 == 0) {
-                    carga[x] = 't1As2'
-                } else {
-                    carga[x] = 'afq23q1qjsJHas'
-                }
-            }
-        }
-
-    }
-    for (let z = 0; z < carga.length; z++) {
-        if (carga[z] != undefined && z!=0) {
-            token = token + carga[z];
-        } else {
-            token = token + 'aoo1934s5aKlsA23'
-        }
-    }
-    token = token.split('undefined')[1];
-    return token
+function GeraToken() {
+    return "asj898h12onas9819nka"
 }
 
 
@@ -188,15 +147,14 @@ export async function POST(req) {
     if (response.rows.length > 0) {
         return NextResponse.json({ sucess: false, mailExiste: true })
     } else {
-        const token = GeraToken(dados.nome.split(' ')[0], dados.nome.split(' ')[1])
+        const token = GeraToken()
         let valores = []
-        const nomeTratado = removeNumbers(dados.nome);
-        await pool.query(`INSERT INTO pessoa(email, nome, senha, token, data_nascimento, escolaridade, sexo, cidade, personal_table) VALUES ('${dados.email}', '${dados.nome}', '${dados.senha}', '${token}', '${dados.dataNascimento}', '${dados.escolaridade}', '${dados.sexo}', '${dados.cidade}', '${nomeTratado}') RETURNING *`, (err, res) => {
+        await pool.query(`INSERT INTO pessoa(email, nome, senha, token, cidade) VALUES ('${dados.email}', '${dados.nome}', '${dados.senha}', '${token}', '${dados.cidade}') RETURNING *`, (err, res) => {
             if (err) {
                 console.log(err.stack);
             }
         })
-        await pool.query(`CREATE TABLE ${nomeTratado} (projetos_favoritados_id INT, certificados TEXT, habilidades TEXT)`)
+        
 
         const pessoaRaw = await pool.query(`SELECT * FROM pessoa WHERE email = '${dados.email}'`)
         const pessoa = pessoaRaw.rows
